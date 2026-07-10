@@ -1,0 +1,23 @@
+ORG 20F0H 
+ARR: DB 01H, 02H, 03H, 04H, 05H 
+LXI H, 20F0H ; HL points to first number 
+MVI C, 05H ; Counter = 5 numbers 
+MVI D, 00H ; D = Higher byte of sum (carry store) 
+MVI E, 00H ; E = Lower byte of sum (accumulator low) 
+
+NEXT: 
+MOV A, M ; Get the number from memory 
+ADD E ; Add to current lower byte sum 
+MOV E, A ; Store back to E 
+JNC SKIP ; If no carry, skip 
+INR D ; Else increment higher byte 
+
+SKIP: 
+INX H ; Next number 
+DCR C ; Decrement counter 
+JNZ NEXT ; Repeat until 5 numbers
+MOV A, E 
+STA 2100H ; Store lower byte 
+MOV A, D 
+STA 2101H ; Store higher byte 
+HLT
