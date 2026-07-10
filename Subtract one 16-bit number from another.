@@ -1,0 +1,10 @@
+LHLD 20C0H ; Loads the first 16-bit number into the HL register pair. 
+LXI D, 20C2H ;Loads the second 16-bit number into the DE register pair. 
+MOV A, L ;Moves the low byte of the first number to the accumulator. 
+SUB E ;Subtracts the low byte of the second number. 
+MOV L, A ;Stores the low byte of the difference in L. 
+MOV A, H ;Moves the high byte of the first number to the accumulator. 
+SBB D ;Subtracts the high byte with borrow from the previous step. 
+MOV H, A ;Stores the high byte of the difference in H. 
+SHLD 20C4H ;Stores the 16-bit result from HL into memory. 
+HLT
