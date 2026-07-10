@@ -1,0 +1,35 @@
+ORG 2050H 
+ARR: DB 01H, 02H, 03H, 04H, 05H 
+LXI H, 2050H ;Initialize memory pointer 1 
+LXI D, 2055H ;Initialize memory pointer 2
+MVI C, 05H ;Initialize counter 
+
+LOOP2: 
+MOV A, M ;Get the number 
+ANI 01H ;Check for odd number 
+JZ LOOP1 ;If EVEN, don’t store 
+MOV A, M 
+STAX D ;Store the number in result list 
+INX D ;Increment pointer 2 
+
+LOOP1: 
+INX H ;Increment pointer l 
+DCR C 
+JNZ LOOP2 
+LXI H, 2050H ;Initialize memory pointer l 
+LXI D, 2060H ;Initialize memory pointer2 
+MVI C, 05H ;Initialize counter 
+
+LOOP4: 
+MOV A, M 
+ANI 01H ;Check for even number 
+JNZ LOOP3 ;If ODD, don’t store 
+MOV A, M 
+STAX D 
+INX D 
+
+LOOP3: 
+INX H 
+DCR C 
+JNZ LOOP4 
+HLT
