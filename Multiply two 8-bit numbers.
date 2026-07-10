@@ -1,0 +1,31 @@
+MVI A, 05 
+STA 2050H 
+MVI A, 04 
+STA 2051H 
+LDA 2050H ; Load first number (multiplicand) into A 
+MOV B,A ; Store in B register (multiplicand) 
+LDA 2051H ; Load second number (multiplier) into A 
+MOV C,A ; Store in C register (multiplier) 
+MVI H,00H ; Clear high byte of result 
+MVI L,00H ; Clear low byte of result 
+
+MULT_LOOP:
+MOV A,C ; Copy multiplier to A 
+ORA A ; Check if multiplier = 0 
+JZ STORE_RESULT ; If zero, multiplication complete 
+DCR C ; Decrement multiplier 
+MOV A,L ; Load low byte of result 
+ADD B ; Add multiplicand to low byte 
+MOV L,A ; Store back to L 
+JNC NO_CARRY ; If no carry, skip incrementing H 
+INR H ; If carry, increment high byte 
+
+NO_CARRY: 
+JMP MULT_LOOP ; Repeat until multiplier becomes 0 
+
+STORE_RESULT: 
+MOV A,L 
+STA 2050H ; Store low byte 
+MOV A,H 
+STA 2051H ; Store high byte 
+HLT
