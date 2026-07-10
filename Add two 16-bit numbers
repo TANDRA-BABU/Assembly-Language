@@ -1,0 +1,10 @@
+LHLD 2050H ;Load first 16-bit number into HL 
+LXI D, 2052H ;Load second 16-bit number into DE 
+MOV A, L ;Move low byte of first number to A 
+ADD E ;Add low byte of second number to A 
+MOV L, A ;Store low byte of sum in L 
+MOV A, H ;Move high byte of first number to A 
+ADC D ;Add high byte of second number with carry 
+MOV H, A ;Store high byte of sum in H 
+SHLD 2054H ;Store 16-bit sum from HL into memory 
+HLT
