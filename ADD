@@ -1,0 +1,6 @@
+MVI B, 45H ;Loads the immediate value 45H into register B. 
+MVI C, 67H ;Loads the immediate value 67H into register C. 
+MOV A, B ;Moves the content of register B to the accumulator. 
+ADD C ;Adds the content of register C to the accumulator. Result is in A. 
+MOV D, A ;Moves the result from the accumulator to register D. 
+HLT
