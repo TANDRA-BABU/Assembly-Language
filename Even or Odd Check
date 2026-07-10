@@ -1,0 +1,23 @@
+1st Approach:- 
+
+LDA 2090H ;Loads the low byte of the number into the accumulator. 
+ANI 01H ;ANDs the accumulator with 01H. 
+JZ EVEN ;Jumps to EVEN if the result is zero (even number). 
+MVI A, FFH ;Loads FFH into the accumulator for an odd number. 
+JMP STORE ;Unconditionally jumps to STORE. 
+EVEN: 
+MVI A, 00H ;Loads 00H for an even number. 
+STORE:
+STA 20A0H ;Stores the final result in 20A0H. 
+HLT
+
+2nd Approach:-
+LDA 2090H 
+RAR ;Rotate A by 1 bit through CY. D0 goes into CY, old CY goes to D7. 
+JNC MVI A, FFH 
+JMP STORE 
+EVEN: 
+MVI A,00H 
+STORE: 
+STA 20A0H 
+HLT
