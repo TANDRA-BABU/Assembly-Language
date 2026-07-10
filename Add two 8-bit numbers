@@ -1,0 +1,7 @@
+LXI H, 20B0H ;Sets HL as a pointer to the first number. 
+MOV A, M ;Loads the first number into the accumulator. 
+INX H ;Increments the pointer to the next number. 
+ADD M ;Adds the second number to the accumulator. 
+INX H ;Increments the pointer for the result. 
+MOV M, A ;Stores the sum from the accumulator into memory. 
+HLT
