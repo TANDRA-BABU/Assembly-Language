@@ -1,0 +1,25 @@
+MVI A, 25 
+STA 2050H 
+MVI A, 05 
+STA 2051H 
+LDA 2050H ; Load Dividend into Accumulator 
+MOV B, A ; Copy Dividend into B (will hold remainder) 
+LDA 2051H ; Load Divisor into Accumulator 
+MOV C, A ; Copy Divisor into C 
+MVI D, 00H ; Initialize Quotient = 0 
+
+NEXT: 
+MOV A, B ; A = current Remainder 
+CMP C ; Compare Remainder with Divisor
+JC DONE ; If Remainder < Divisor → Done 
+SUB C ; A = A – Divisor 
+MOV B, A ; Update Remainder 
+INR D ; Increment Quotient 
+JMP NEXT ; Repeat 
+
+DONE: 
+MOV A, D ; Quotient in A 
+STA 2052H ; Store Quotient at 2052H 
+MOV A, B ; Remainder in A 
+STA 2053H ; Store Remainder at 2053H 
+HLT
