@@ -1,0 +1,4 @@
+MVI A, 55H ; Loads the immediate value 55H into the accumulator. 
+SUI 30H ;Subtracts the immediate value 30H from the accumulator. 
+STA 2050H ;Stores the accumulator's content at 2050H. 
+HLT
