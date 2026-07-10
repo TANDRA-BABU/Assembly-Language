@@ -1,0 +1,7 @@
+LDA 2070H ;Loads the content of 2070H into the accumulator. 
+MOV B, A ;Moves the content of A to register B (temporary storage). 
+LDA 2080H ;Loads the content of 2080H into the accumulator. 
+STA 2070H ;Stores the content of A (originally from 2080H) into 2070H. 
+MOV A, B ;Moves the content of B (originally from 2070H) into the accumulator. 
+STA 2080H ;Stores the content of A into 2080H. 
+HLT
