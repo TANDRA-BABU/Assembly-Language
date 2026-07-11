@@ -1,0 +1,29 @@
+MVI A,02H
+STA 2050H
+MVI A,03H
+STA 2051H
+LXI H, 2050H ; Load data from memory
+MOV B, M ; Load base to B register
+INX H ; Increment memory
+MOV C, M ;Load exponent to C register
+MVI D, 01H ;Set D register to 1
+
+POWER_LOOP:
+
+CALL MULTIPLY ;Subroutine call for multiplication
+DCR C ;Decrement C
+JNZ POWER_LOOP ;Call power loop till C becomes 0
+INX H ;Increment memory
+MOV M, D ;Store result in memory
+HLT
+
+MULTIPLY:
+MOV E, B ;Transfer contents of B to E
+MVI A, 00H ;Clear accumulator to store result
+
+MULTIPLYLOOP:
+ADD D ;Add contents of D to A
+DCR E ;Decrement E
+JNZ MULTIPLYLOOP ;Repeated addition
+MOV D, A ;Transfer contents of A to D
+RET
