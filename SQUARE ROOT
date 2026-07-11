@@ -1,0 +1,18 @@
+MVI A, 09
+STA 2050
+MVI D, 01 ;D <- 0101
+MVI E, 01 ;E <- 0101
+LDA 2050 ;A <- M[2050]
+
+LOOP2:
+SUB D ;A <- A - D
+JZ LOOP1 ;Jump if ZF = 0 to memory location 2011
+INR D ;D <- D + 1
+INR D ;D <- D + 1
+INR E ;E <- E + 1
+JMP LOOP2 ;Jump to memory location 2007LOOP2 ;Jump
+
+LOOP1:
+MOV A, E ;A <- E
+STA 2051 ;A -> M[3050] 
+HLT
