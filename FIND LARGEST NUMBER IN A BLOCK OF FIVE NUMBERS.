@@ -1,0 +1,18 @@
+ORG 20D0H
+DB 14H, 34H, 89H, 22H, 56H ; ORG 2000H
+MVI B, 05H ; Counter = 5 numbers
+LXI H, 20D0H ; HL points to first number
+MOV A, M ; Load first number into A (assume largest)
+INX H ; Move to next number 
+
+FIND_LARGEST:
+CMP M ; Compare A with current number
+JNC SKIP ; If A >= M, skip
+MOV A, M ; Else, update A 
+
+SKIP:
+INX H
+DCR B
+JNZ FIND_LARGEST 
+STA 20E0H
+HLT
