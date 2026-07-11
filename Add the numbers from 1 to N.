@@ -1,0 +1,24 @@
+MVI A,05H 
+STA 2050H 
+LDA 2050H ; Load N 
+MOV C, A ; C = N (counter) 
+MVI B, 01H ; B = 1 (starting number) 
+MVI D, 00H ; D = high byte of sum 
+MVI E, 00H ; E = low byte of sum 
+
+NEXT:
+MOV A, B ; A = current number 
+ADD E ; Add to low byte 
+MOV E, A ; Store back in low byte 
+JNC SKIP ; If no carry, skip 
+INR D ; Else increment high byte 
+
+SKIP: 
+INR B ; Next number 
+DCR C ; Decrement counter 
+JNZ NEXT ; Repeat until N numbers 
+MOV A, E 
+STA 2051H ; Store low byte 
+MOV A, D 
+STA 2052H ; Store high byte 
+HLT
