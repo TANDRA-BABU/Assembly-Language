@@ -1,0 +1,29 @@
+ORG 2050H
+ARR: DB 05, 21, 45, 12, 32, 11
+START:
+LXI H, 2050H ;Load size of array
+MVI D, 00H ;Clear D register to set up a flag
+MOV C, M
+DCR C
+INX H
+
+CHECK:
+MOV A, M
+INX H
+CMP M ;Compare Accumulator with next element
+JC NEXTBYTE ;If accumulator is less then jump to NEXTBYTE
+JZ NEXTBYTE ;If accumulator is equal then jump to NEXTBYTE
+MOV B, M ;Swap the two elements
+MOV M, A
+DCX H
+MOV M, B
+INX H
+MVI D, 01H ;If exchange occurs save 01 in D register
+
+NEXTBYTE:
+DCR C ;Decrement C for next iteration
+JNZ CHECK ;Jump to CHECK if C>0
+MOV A, D
+CPI 01H
+JZ START
+HLT
