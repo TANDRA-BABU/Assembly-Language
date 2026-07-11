@@ -1,0 +1,34 @@
+ORG 2050H
+N: DB 05H ; Number of elements = 5
+ARR: DB 05H, 0CH, 00H, FDH, FFH ; 5,12,0,-3,-1 
+LDA 2050H 
+MOV C, A ; Counter = N
+MVI D, 00H ; High byte sum 
+MVI E, 00H ; Low byte sum 
+LXI H, 2051H ; HL points to array start 
+
+SUM_LOOP:
+MOV A, M ; Load element
+CPI 00H
+JC SKIP ; Skip negative
+JZ SKIP ; Skip zero ; Add element to DE
+MOV A, E
+ADD M
+MOV E, A
+JC INC_D ; If carry, increment D JMP NEXT
+INC_D: INR D ; Increment high byte
+
+NEXT: 
+INX H
+DCR C
+JNZ SUM_LOOP 
+
+SKIP: 
+INX H
+DCR C
+JNZ SUM_LOOP 
+MOV A, D 
+STA 2052H
+MOV A, E
+STA 2053H 
+HLT
