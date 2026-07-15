@@ -2,7 +2,6 @@ import numpy as np
 
 data=[5,6,7,8,9,11,15,16,17,19,21,24]
 bins=[5,10,15,20,25]
-
 freq, edges=np.histogram(data,bins)
 
 mid= [(edges[i]+edges[i+1])/2 for i in range(len(freq))]
